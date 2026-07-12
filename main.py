@@ -6,6 +6,7 @@ import threading
 from streamlit.runtime.scriptrunner import add_script_run_ctx
 
 import streamlit as st
+import streamlit.components.v1 as components
 import time
 from streamlit_autorefresh import st_autorefresh
 import pandas as pd
@@ -496,24 +497,15 @@ with tab5:
                         spy_features = dp_models.engineer_features(raw_spy)
                         ml_models = MLModelPipeline()
                         ml_models.train(spy_features)
-                        st.session_state['models_diagnostics_rendered'] = (ml_models.n_components_kept, len(ml_models._get_feature_cols(spy_features)), ml_models.cumulative_variance_)
+                        st.session_state['models_diagnostics_rendered'] = len(ml_models._get_feature_cols(spy_features))
                 except Exception as e:
-                    st.error(f"Failed to fetch SPY for PCA baseline: {e}")
+                    st.error(f"Failed to fetch SPY for baseline: {e}")
         
         if 'models_diagnostics_rendered' in st.session_state:
-            comp_kept, total_feat, cum_var = st.session_state['models_diagnostics_rendered']
+            total_feat = st.session_state['models_diagnostics_rendered']
             
-            col1, col2 = st.columns([1, 2])
-            with col1:
-                st.info("**Gradient Boosting Classifier**")
-                st.metric("PCA Components Kept (>= 80% Var)", comp_kept)
-                st.metric("Total Original Features", total_feat)
-            with col2:
-                fig_pca = go.Figure()
-                fig_pca.add_trace(go.Scatter(y=cum_var, mode='lines+markers', name='Cumulative Variance', line=dict(color='#00ff99', width=2)))
-                fig_pca.add_hline(y=0.80, line_dash="dash", line_color="red", annotation_text="80% Threshold")
-                fig_pca.update_layout(title="PCA Cumulative Explained Variance", xaxis_title="Number of Components", yaxis_title="Cumulative Variance Explained", **get_plotly_layout())
-                st.plotly_chart(fig_pca, use_container_width=True)
+            st.info("**Gradient Boosting Classifier (Training on Raw Features)**")
+            st.metric("Total Technical Features", total_feat)
     else:
         st.warning("Provide API keys in the sidebar to generate the diagnostics overview.")
 
@@ -601,3 +593,20 @@ if auto_pilot:
         add_script_run_ctx(t)
         t.start()
         st.session_state['autopilot_daemon_running'] = True
+
+# Disable autocorrect/spellcheck on ticker inputs via JS injection
+components.html(
+    """
+<script>
+const inputs = window.parent.document.querySelectorAll('input[type="text"]');
+inputs.forEach(input => {
+    input.setAttribute('autocomplete', 'off');
+    input.setAttribute('autocorrect', 'off');
+    input.setAttribute('autocapitalize', 'off');
+    input.setAttribute('spellcheck', 'false');
+});
+</script>
+""",
+    height=0,
+    width=0,
+)

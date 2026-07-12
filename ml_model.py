@@ -10,11 +10,11 @@ class MLModelPipeline:
         # Initialize PCA without fixed n_components. We'll set it during fit.
         self.pca = PCA()
         self.model = GradientBoostingClassifier(
-            n_estimators=150,
-            max_depth=4,
-            min_samples_leaf=2,
-            learning_rate=0.1,
-            subsample=0.9,
+            n_estimators=50,
+            max_depth=2,
+            min_samples_leaf=15,
+            learning_rate=0.05,
+            subsample=0.7,
             max_features='sqrt',
             random_state=42
         )
@@ -67,13 +67,13 @@ class MLModelPipeline:
         probs = self.model.predict_proba(X_pca)
         return probs[:, 1]  # Return probability of class 1
 
-    def generate_signals(self, df: pd.DataFrame, threshold: float = 0.6) -> pd.Series:
+    def generate_signals(self, df: pd.DataFrame, threshold: float = 0.5) -> pd.Series:
         """Generates binary signals based on probability threshold."""
         probs = self.predict_probabilities(df)
         signals = (probs > threshold).astype(int)
         return pd.Series(signals, index=df.index, name='Signal')
 
-    def predict_today_signal(self, df: pd.DataFrame, threshold: float = 0.6) -> tuple:
+    def predict_today_signal(self, df: pd.DataFrame, threshold: float = 0.5) -> tuple:
         """Predicts signal for the very last row (today)."""
         probs = self.predict_probabilities(df)
         today_prob = probs[-1]
