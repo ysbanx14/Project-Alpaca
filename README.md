@@ -13,7 +13,7 @@ The application operates **strictly in Alpaca Paper Trading mode** using a non-d
 
 The codebase is engineered with a strict modular architecture, separating data engineering, predictive modeling, backtesting, and live execution into distinct operational layers:
 
-- **`data_pipeline.py` (Data Pipeline):** Interfaces with the Alpaca API to fetch historical market data. It handles all native Pandas technical feature engineering (SMA, MACD, RSI, Bollinger Bands, OBV) and target variable alignment to ensure the model trains on diverse datasets.
+- **`data_pipeline.py` (Data Pipeline):** Interfaces with the Alpaca API to fetch historical market data. It handles all native Pandas technical feature engineering (SMA, MACD, RSI, Bollinger Bands, OBV).
 - **`ml_model.py` (ML Strategy):** Manages the Scikit-Learn predictive pipeline. It scales features, performs Principal Component Analysis (PCA) for dimensionality reduction, and trains the heavily regularized `GradientBoostingClassifier`.
 - **`backtester.py` (Backtester):** A highly optimized, vectorized backtesting engine that simulates historical equity curves and computes core quantitative performance metrics (Total Return, Sharpe Ratio, Max Drawdown, etc.) against a $100k baseline.
 - **`paper_trader.py` (Execution Engine):** Interacts with Alpaca’s Paper Trading API to compute live position sizing, execute bracket orders, and handle real-time buying power constraints.
