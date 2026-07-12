@@ -87,6 +87,6 @@ Switch to the **Live Portfolio Tracking** tab. This acts as your command center.
 
 
 ### Phase 3: Activating the Auto-Pilot Daemon
-Navigate to the **Auto-Pilot** tab and toggle "Enable Auto-Pilot Trading" to True. This activates the non-blocking background execution daemon. The daemon continuously evaluates your deployed models and executes trades strictly once per day at **3:55 PM EST**, synchronizing the live environment with the daily closing price assumptions used during model training. You can monitor the real-time API responses in the live Execution Status Board DataFrame.
+Navigate to the **Auto-Pilot** tab and toggle "Enable Auto-Pilot Trading" to True. This activates the non-blocking background execution feature. The auto-pilot continuously evaluates your deployed models and executes trades strictly once per day at **3:55 PM EST**, synchronizing the live environment with the daily closing price assumptions used during model training. You can monitor the real-time API responses in the live Execution Status Board DataFrame.
 
 > <img width="3141" height="1252" alt="Screenshot 2026-07-12 at 6 19 27 PM" src="https://github.com/user-attachments/assets/ba4e74bc-0199-428c-9eaa-66055043e250" />
