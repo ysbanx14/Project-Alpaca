@@ -1,6 +1,6 @@
 # Quantitative ML Trading System
 
-> An end-to-end algorithmic trading platform designed for systematic, machine-learning-driven portfolio management.
+> An algorithmic trading platform designed for systematic, machine-learning-driven portfolio management.
 
 ## Project Overview & Goals
 
@@ -15,7 +15,7 @@ The application operates **strictly in Alpaca Paper Trading mode** using a non-d
 
 The codebase is engineered with a strict modular architecture, separating data engineering, predictive modeling, backtesting, and live execution into distinct operational layers:
 
-- **`data_pipeline.py` (Data Pipeline):** Interfaces with the Alpaca API to fetch historical market data. It handles all native Pandas technical feature engineering (SMA, MACD, RSI, Bollinger Bands, OBV) and target variable alignment to ensure the model trains on robust datasets.
+- **`data_pipeline.py` (Data Pipeline):** Interfaces with the Alpaca API to fetch historical market data. It handles all native Pandas technical feature engineering (SMA, MACD, RSI, Bollinger Bands, OBV) and target variable alignment to ensure the model trains on diverse datasets.
 - **`ml_model.py` (ML Strategy):** Manages the Scikit-Learn predictive pipeline. It scales features, performs Principal Component Analysis (PCA) for dimensionality reduction, and trains the heavily regularized `GradientBoostingClassifier`.
 - **`backtester.py` (Backtester):** A highly optimized, vectorized backtesting engine that simulates historical equity curves and computes core quantitative performance metrics (Total Return, Sharpe Ratio, Max Drawdown, etc.) against a $100k baseline.
 - **`paper_trader.py` (Execution Engine):** Interacts with Alpaca’s Paper Trading API to compute live position sizing, execute bracket orders, and handle real-time buying power constraints.
@@ -61,7 +61,7 @@ streamlit run main.py
 - **Feature Engineering:** Technical indicators covering Momentum (RSI, MACD), Volatility (Bollinger Bands), Volume (OBV), and Trend (SMA_50) are engineered natively to create a multi-dimensional view of the asset.
 - **Dimensionality Reduction:** The pipeline implements `StandardScaler` followed by PCA, dynamically keeping only the principal components necessary to explain `>= 80%` of the cumulative variance, effectively reducing noise and multi-collinearity.
 - **Predictive Engine:** A strictly regularized `GradientBoostingClassifier` identifies complex, non-linear interactions between the PCA components to predict $T+1$ positive returns.
-- **0.60 Probability Barrier:** To prevent over-trading in choppy markets, the system enforces a strict confidence threshold: signals trigger a Long (1) only if the model predicts a probability of an upward move strictly greater than **0.60**. Any prediction at or below 0.60 defaults to Flat (0).
+- **0.60 Probability Barrier:** To prevent over-trading in choppy markets, the system enforces a strict confidence threshold: signals trigger a Long (1) only if the model predicts a probability of an upward move strictly greater than **0.50**. Any prediction at or below 0.50 defaults to Flat (0).
 
 ### Hard Risk Controls
 The system algorithmically enforces risk management rather than relying on human discretion:
