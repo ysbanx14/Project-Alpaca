@@ -1,7 +1,5 @@
 # Quantitative ML Trading System
 
-> An algorithmic trading platform designed for systematic, machine-learning-driven portfolio management.
-
 ## Project Overview & Goals
 
 This system is a comprehensive quantitative trading platform designed to bridge the gap between rigorous backtesting and active live execution. 
