@@ -78,14 +78,15 @@ The system algorithmically enforces risk management rather than relying on human
 ### Phase 1: Research & Deploy
 Navigate to the **Research & Deploy** tab. Enter a ticker symbol (e.g., `AAPL`) and run the pipeline. The system will fetch the data, train the ML model, and output the OOS backtest metrics and PCA variance charts. If satisfied with the strategy's statistical edge, click "Deploy ML Strategy" to save the ticker to your local portfolio state.
 
-> *[Insert Screenshot of Research & Deploy Dashboard Here]*
+> <img width="3141" height="1252" alt="Screenshot 2026-07-12 at 6 17 41 PM" src="https://github.com/user-attachments/assets/2b53a45b-f12e-4d46-8cb5-9bb937d9d451" />
 
 ### Phase 2: Live Portfolio Tracking
 Switch to the **Live Portfolio Tracking** tab. This acts as your command center. Select any deployed ticker from the dropdown to instantly view its live Alpaca position metrics (Shares Held, Avg Entry Price, Unrealized P&L), today's actionable ML probability, and historical trade execution logs.
 
-> *[Insert Screenshot of Live Portfolio Tracking Here]*
+> <img width="3141" height="1252" alt="Screenshot 2026-07-12 at 6 18 49 PM" src="https://github.com/user-attachments/assets/d9d57b7f-d99b-4457-a05e-35d448e75757" />
+
 
 ### Phase 3: Activating the Auto-Pilot Daemon
 Navigate to the **Auto-Pilot** tab and toggle "Enable Auto-Pilot Trading" to True. This activates the non-blocking background execution daemon. The daemon continuously evaluates your deployed models and executes trades strictly once per day at **3:55 PM EST**, synchronizing the live environment with the daily closing price assumptions used during model training. You can monitor the real-time API responses in the live Execution Status Board DataFrame.
 
-> *[Insert Screenshot of Auto-Pilot Logs Here]*
+> <img width="3141" height="1252" alt="Screenshot 2026-07-12 at 6 19 27 PM" src="https://github.com/user-attachments/assets/ba4e74bc-0199-428c-9eaa-66055043e250" />
